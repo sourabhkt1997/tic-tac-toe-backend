@@ -229,7 +229,7 @@ io.on("connection",(socket)=>{
 
 
 app.get('/', (req, res) => {
-    res.send("Welcome to the Live X's And O's")
+    res.send("Welcome to the TIC-TAC-TOE powered by honest station") 
 })
 
 app.use("/user",userrouter)
