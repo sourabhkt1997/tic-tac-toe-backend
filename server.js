@@ -14,6 +14,8 @@ app.use(cookieparser())
 const cors = require('cors')
 app.use(cors())
 
+let port=process.env.port || 8080
+
 
 let matrix=[]
 for(let i=0;i<3;i++){
@@ -236,7 +238,7 @@ app.use("/user",userrouter)
 
 
 
-server.listen(process.env.port, async (req, res) => {
+server.listen(port, async (req, res) => {
     try {
         await connection;
         console.log('Server is connected to the Database.');
