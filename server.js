@@ -202,6 +202,9 @@ io.on("connection",(socket)=>{
         gamestatus.win=data.win
         gamestatus.winningline=data.winningline
         gamestatus.clickedcell=[]
+        if(data.winnerdata==3){
+            gamestatus.winnerdata=[]
+        }
         // io.emit("game",gamestatus)
     })
      
@@ -211,13 +214,7 @@ io.on("connection",(socket)=>{
         newmatrx.push(arr)
     } 
 
-    socket.on("restart",(data)=>{
-        gamestatus.board=newmatrx
-        gamestatus.win=null
-        gamestatus.winnerdata=[]
-        gamestatus.winningline=[]
-        gamestatus.clickedcell=[]
-    })
+  
     
      chat(socket,io)
 
