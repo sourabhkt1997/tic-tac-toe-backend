@@ -32,7 +32,9 @@ let gamestatus={
     winningline:[],
     clickedcell:[]
    }
-   console.log(gamestatus)
+   
+
+  
 
    function rejectsameplayer(data){
     if(gamestatus.player.length==0){
@@ -68,13 +70,16 @@ io.on("connection",(socket)=>{
             io.emit("gameBegins","gameBegins")
         }
     
+        console.log(gamestatus)
         io.emit("game",gamestatus)
+
+        
     }) 
      
     
    
     socket.on("clicked",(data)=>{
-        
+        console.log(data)
         //finding nextplayer
         if(data[1]==gamestatus.nextplayer){
            
@@ -189,6 +194,7 @@ io.on("connection",(socket)=>{
         io.emit("game",gamestatus)
        }
         
+    
       
     })
 
@@ -206,15 +212,15 @@ io.on("connection",(socket)=>{
     } 
 
     socket.on("restart",(data)=>{
-        gamestatus.player=data.player
         gamestatus.board=newmatrx
-        gamestatus.nextplayer=data.player
         gamestatus.win=null
         gamestatus.winnerdata=[]
         gamestatus.winningline=[]
+        gamestatus.clickedcell=[]
     })
     
      chat(socket,io)
+
    socket.on("disconnect",()=>{
     gamestatus.player=[]
     gamestatus.board=newmatrx
@@ -222,8 +228,12 @@ io.on("connection",(socket)=>{
     gamestatus.win=null
     gamestatus.winnerdata=[]
     gamestatus.winningline=[]
+    gamestatus.clickedcell=[]
     console.log("disconnect")
    })
+
+
+  
     
 })
 
