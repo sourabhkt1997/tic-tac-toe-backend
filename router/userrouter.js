@@ -19,7 +19,7 @@ userrouter.get("/",async(req,res)=>{
 })
 
 userrouter.post("/register",async(req,res)=>{
-
+    
     try{
        let {email,password}=req.body
        console.log(email)
@@ -45,6 +45,7 @@ userrouter.post("/login",async(req,res)=>{
     try{
         let {email,password}=req.body
         console.log(email,password)
+        if(!password) return res.status(400).send ({"message":"enter password"})
         let user =await UserModel.findOne({email:email})
         console.log(user)
         if(user){

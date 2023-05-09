@@ -29,8 +29,10 @@ let gamestatus={
     nextplayer:"",
     win:null,
     winnerdata:[],
-    winningline:[]
+    winningline:[],
+    clickedcell:[]
    }
+   console.log(gamestatus)
 
    function rejectsameplayer(data){
     if(gamestatus.player.length==0){
@@ -79,10 +81,13 @@ io.on("connection",(socket)=>{
             let filter=gamestatus.player.filter((ele)=>{
              return ele.name!=data[1]
             })
-            console.log(filter,"filter")
             gamestatus.nextplayer=filter[0].name
               
             }
+
+            // addingclickedcell
+            gamestatus.clickedcell.push(data[0])
+            // console.log(gamestatus,"**********************************")
         
         // adding the clied user to the gae board
         if(data[0]=="cell-1"){
@@ -136,7 +141,7 @@ io.on("connection",(socket)=>{
                 return true
             }
         }
-        console.log()
+       
         for(let i=0;i<3;i++){
             if((gamestatus.board[0][i]==gamestatus.board[1][i] && gamestatus.board[1][i]== gamestatus.board[2][i]) && gamestatus.board[0][i] !=null  && gamestatus.board[1][i] !=null && gamestatus.board[2][i] !=null){
                 gamestatus.winningline.push([0,i],[1,i],[2,i])
@@ -164,7 +169,6 @@ io.on("connection",(socket)=>{
             let arr=new Array(3).fill(null)
             newmatrix.push(arr)
         } 
-        console.log(newmatrix)
         gamestatus.winnerdata.push(data[1])
         gamestatus.win=data[1]
         gamestatus.board=newmatrix
@@ -184,19 +188,17 @@ io.on("connection",(socket)=>{
        else{
         io.emit("game",gamestatus)
        }
-       console.log(gamestatus,"====")
         
       
     })
 
     socket.on("newround",(data)=>{
-        console.log(data)
         gamestatus.win=data.win
         gamestatus.winningline=data.winningline
+        gamestatus.clickedcell=[]
         // io.emit("game",gamestatus)
     })
      
-    let g=55
     let newmatrx=[]
     for(let i=0;i<3;i++){
         let arr=new Array(3).fill(null)
