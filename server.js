@@ -202,7 +202,7 @@ io.on("connection",(socket)=>{
         gamestatus.win=data.win
         gamestatus.winningline=data.winningline
         gamestatus.clickedcell=[]
-        if(data.winnerdata==3){
+        if(data.winnerdata.length==3){
             gamestatus.winnerdata=[]
         }
         // io.emit("game",gamestatus)
